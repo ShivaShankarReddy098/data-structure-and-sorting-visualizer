@@ -1,51 +1,68 @@
 "use client";
+
 import React, { useState } from "react";
 
 const QueueVisualizer = () => {
   const [queue, setQueue] = useState([]);
-  const [input, setInput] = useState("");
+  const [value, setValue] = useState("");
 
-  const enqueue = () => {
-    setQueue([...queue, input]);
-    setInput("");
+  const handleEnqueue = () => {
+    if (value === "") return;
+    setQueue([...queue, Number(value)]);
+    setValue("");
   };
 
-  const dequeue = () => {
-    setQueue(queue.slice(1));
+  const handleDequeue = () => {
+    if (queue.length === 0) return;
+    const newQueue = [...queue];
+    newQueue.shift();
+    setQueue(newQueue);
+  };
+
+  const handlePeek = () => {
+    if (queue.length === 0) return alert("Queue is empty!");
+    alert(`Front of queue: ${queue[0]}`);
   };
 
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Queue Visualizer</h2>
-      <div className="flex border border-gray-300 p-4 rounded mb-4">
-        {queue.map((item, idx) => (
-          <div
-            key={idx}
-            className="bg-green-500 text-white p-2 mx-1 text-center"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center">
+      <div className="mb-4">
         <input
-          className="border border-gray-300 p-2 rounded mr-4"
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          type="number"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Value"
+          className="border border-gray-300 p-2 rounded mr-2"
         />
         <button
-          className="bg-blue-500 px-4 py-2 text-white rounded mr-4"
-          onClick={enqueue}
+          onClick={handleEnqueue}
+          className="bg-blue-500 px-4 py-2 text-white rounded mr-2"
         >
           Enqueue
         </button>
         <button
-          className="bg-red-500 px-4 py-2 text-white rounded"
-          onClick={dequeue}
+          onClick={handleDequeue}
+          className="bg-red-500 px-4 py-2 text-white rounded mr-2"
         >
           Dequeue
         </button>
+        <button
+          onClick={handlePeek}
+          className="bg-green-500 px-4 py-2 text-white rounded"
+        >
+          Peek
+        </button>
+      </div>
+      <div className="flex justify-center mt-4">
+        {queue.map((value, idx) => (
+          <div
+            key={idx}
+            className="bg-blue-500 mx-1 text-white text-center px-4 py-2 rounded"
+          >
+            {value}
+          </div>
+        ))}
       </div>
     </div>
   );
