@@ -7,6 +7,9 @@ const Navbar = () => {
         My Visualizer
       </Link>
       <div>
+        <Link href="/Problems" className="mx-4 hover:text-gray-400">
+          Problems
+        </Link>
         <Link href="/sorting" className="mx-4 hover:text-gray-400">
           Sorting Visualizer
         </Link>
