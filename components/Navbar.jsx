@@ -16,6 +16,9 @@ const Navbar = () => {
         <Link href="/data-structures" className="mx-4 hover:text-gray-400">
           Data Structures
         </Link>
+        <Link href="/Practice" className="mx-4 hover:text-gray-400">
+          Practice
+        </Link>
       </div>
     </nav>
   );

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { aiRes } from "@/utils/apiChat";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,22 @@ const Chatbot = () => {
         },
       ]);
     }, 1000);
+    const handleSendMessage = async () => {
+      const response = await aiRes(input);
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: response
+            .replace("```", "")
+            .replace("***", "")
+            .replace("**", "")
+            .replace("** * *", ""),
+        },
+      ]);
+    };
+    handleSendMessage();
+    // aiRes(input);
 
     setInput("");
   };
