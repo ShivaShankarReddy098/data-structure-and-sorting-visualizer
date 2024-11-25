@@ -4,16 +4,20 @@ import React, { useState, useEffect } from "react";
 const SortingVisualizer = () => {
   const [array, setArray] = useState([]);
   const [speed, setSpeed] = useState(500);
+  const [givenArr, setGivenArr] = useState([]);
   const [algorithm, setAlgorithm] = useState("Bubble Sort");
   const [sortedArray, setSortedArray] = useState([]);
+  const [activeBars, setActiveBars] = useState([]); 
 
   const generateArray = () => {
     const newArray = Array.from(
       { length: 10 },
-      () => Math.floor(Math.random() * 100) + 1
+      () => Math.floor(Math.random() * 100) + 10
     );
     setArray(newArray);
+    setGivenArr(newArray);
     setSortedArray([]);
+    setActiveBars([]);
   };
 
   useEffect(() => {
@@ -25,11 +29,13 @@ const SortingVisualizer = () => {
     const arr = [...array];
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length - i - 1; j++) {
+        setActiveBars([j, j + 1]); 
         if (arr[j] > arr[j + 1]) {
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; 
           setArray([...arr]);
           await new Promise((resolve) => setTimeout(resolve, speed));
         }
+        setActiveBars([]); 
       }
     }
     setSortedArray([...arr]);
@@ -41,6 +47,7 @@ const SortingVisualizer = () => {
       let key = arr[i];
       let j = i - 1;
       while (j >= 0 && arr[j] > key) {
+        setActiveBars([j, j + 1]);
         arr[j + 1] = arr[j];
         setArray([...arr]);
         await new Promise((resolve) => setTimeout(resolve, speed));
@@ -48,6 +55,7 @@ const SortingVisualizer = () => {
       }
       arr[j + 1] = key;
       setArray([...arr]);
+      setActiveBars([]);
     }
     setSortedArray([...arr]);
   };
@@ -65,6 +73,7 @@ const SortingVisualizer = () => {
   const merge = async (left, right) => {
     let result = [];
     while (left.length && right.length) {
+      setActiveBars([0, 1]); 
       if (left[0] < right[0]) {
         result.push(left.shift());
       } else {
@@ -72,6 +81,7 @@ const SortingVisualizer = () => {
       }
       setArray([...result, ...left, ...right]);
       await new Promise((resolve) => setTimeout(resolve, speed));
+      setActiveBars([]);
     }
     return [...result, ...left, ...right];
   };
@@ -93,6 +103,7 @@ const SortingVisualizer = () => {
     const pivot = arr[high];
     let i = low - 1;
     for (let j = low; j < high; j++) {
+      setActiveBars([j, high]); 
       if (arr[j] < pivot) {
         i++;
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -102,6 +113,7 @@ const SortingVisualizer = () => {
     }
     [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
     setArray([...arr]);
+    setActiveBars([]);
     return i + 1;
   };
 
@@ -122,8 +134,13 @@ const SortingVisualizer = () => {
         {array.map((value, idx) => (
           <div
             key={idx}
-            className="bg-blue-500 mx-1 text-white text-center"
-            style={{ height: `${value * 3}px`, width: "20px" }}
+            className={`mx-1 text-white text-center ${
+              activeBars.includes(idx) ? "bg-red-500" : "bg-blue-500"
+            }`}
+            style={{
+              height: `${value * 3}px`,
+              width: "30px",
+            }}
           >
             {value}
           </div>
@@ -153,6 +170,21 @@ const SortingVisualizer = () => {
           Start Sorting
         </button>
       </div>
+      {givenArr.length > 0 && (
+        <div className="text-center mt-4">
+          <h3 className="text-lg font-bold">Given Array:</h3>
+          <div className="flex justify-center">
+            {givenArr.map((value, idx) => (
+              <div
+                key={idx}
+                className="bg-green-500 mx-1 text-white text-center p-2 rounded"
+              >
+                {value}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {sortedArray.length > 0 && (
         <div className="text-center mt-4">
           <h3 className="text-lg font-bold">Sorted Array:</h3>
