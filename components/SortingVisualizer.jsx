@@ -7,7 +7,7 @@ const SortingVisualizer = () => {
   const [givenArr, setGivenArr] = useState([]);
   const [algorithm, setAlgorithm] = useState("Bubble Sort");
   const [sortedArray, setSortedArray] = useState([]);
-  const [activeBars, setActiveBars] = useState([]); 
+  const [activeBars, setActiveBars] = useState([]);
 
   const generateArray = () => {
     const newArray = Array.from(
@@ -29,13 +29,13 @@ const SortingVisualizer = () => {
     const arr = [...array];
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length - i - 1; j++) {
-        setActiveBars([j, j + 1]); 
+        setActiveBars([j, j + 1]);
         if (arr[j] > arr[j + 1]) {
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; 
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
           setArray([...arr]);
           await new Promise((resolve) => setTimeout(resolve, speed));
         }
-        setActiveBars([]); 
+        setActiveBars([]);
       }
     }
     setSortedArray([...arr]);
@@ -73,7 +73,7 @@ const SortingVisualizer = () => {
   const merge = async (left, right) => {
     let result = [];
     while (left.length && right.length) {
-      setActiveBars([0, 1]); 
+      setActiveBars([0, 1]);
       if (left[0] < right[0]) {
         result.push(left.shift());
       } else {
@@ -103,7 +103,7 @@ const SortingVisualizer = () => {
     const pivot = arr[high];
     let i = low - 1;
     for (let j = low; j < high; j++) {
-      setActiveBars([j, high]); 
+      setActiveBars([j, high]);
       if (arr[j] < pivot) {
         i++;
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -177,7 +177,7 @@ const SortingVisualizer = () => {
             {givenArr.map((value, idx) => (
               <div
                 key={idx}
-                className="bg-green-500 mx-1 text-white text-center p-2 rounded"
+                className="bg-yellow-300 mx-1 text-white text-center p-2 rounded"
               >
                 {value}
               </div>

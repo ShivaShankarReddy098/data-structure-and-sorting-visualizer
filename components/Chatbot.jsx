@@ -19,10 +19,7 @@ const Chatbot = () => {
   const handleSend = () => {
     if (input.trim() === "") return;
 
-    // Add user message
     setMessages([...messages, { sender: "user", text: input }]);
-
-    // Simulate bot response (You can replace this with an AI API integration)
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
@@ -33,7 +30,8 @@ const Chatbot = () => {
       ]);
     }, 1000);
     const handleSendMessage = async () => {
-      const response = await aiRes(input);
+      const myInput = `${input},give content what i asked do not give more content if i did not asked`;
+      const response = await aiRes(myInput);
       setMessages((prev) => [
         ...prev,
         {
@@ -54,7 +52,6 @@ const Chatbot = () => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {/* Chatbot Button */}
       {!isOpen && (
         <button
           onClick={handleToggle}
@@ -63,8 +60,6 @@ const Chatbot = () => {
           Chat
         </button>
       )}
-
-      {/* Chatbot Window */}
       {isOpen && (
         <div className="w-80 bg-white border border-gray-200 shadow-lg rounded-lg">
           <div className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between">
@@ -80,7 +75,7 @@ const Chatbot = () => {
                 className={`mb-2 p-2 rounded-lg ${
                   msg.sender === "bot"
                     ? "bg-blue-100 text-blue-800 self-start"
-                    : "bg-gray-200 text-gray-800 self-end"
+                    : "bg-gray-200 text-black self-end"
                 }`}
               >
                 {msg.text}
@@ -97,7 +92,7 @@ const Chatbot = () => {
             />
             <button
               onClick={handleSend}
-              className="bg-blue-600 text-white px-4 rounded-r-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700"
             >
               Send
             </button>
