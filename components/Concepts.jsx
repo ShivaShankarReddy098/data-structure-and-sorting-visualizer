@@ -85,7 +85,7 @@ const Concepts = () => {
   ];
 
   return (
-    <div id="concepts" className="py-16 px-8">
+    <div id="concepts" className="lg:py-16 py-20 px-8">
       <h2 className="text-4xl font-bold text-center mb-8">Concepts & Theory</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {concepts.map((concept) => (
@@ -103,13 +103,11 @@ const Concepts = () => {
             >
               Read More
             </button>
-
-            {/* Modal */}
             {selectedConcept === concept.id && (
-              <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-                <div className="bg-white p-8 rounded-lg shadow-lg max-w-2xl">
+              <div className="fixed lg:top-0 top-8 m-4 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+                <div className="bg-white lg:p-8 p-3 rounded-lg shadow-lg max-w-2xl">
                   <h3 className="text-2xl font-bold mb-4">{concept.title}</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap mb-6">
+                  <p className="text-gray-700 whitespace-pre-wrap mb-6 text-center">
                     {concept.fullDetails}
                   </p>
                   <button

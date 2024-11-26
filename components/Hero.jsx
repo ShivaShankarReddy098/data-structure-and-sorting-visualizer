@@ -5,8 +5,8 @@ import TypingAnimation from "./ui/typing-animation";
 
 const Hero = () => {
   return (
-    <div className=" bg-slate-800 text-white pt-48 pb-56 px-8 grid lg:grid-cols-2 items-center  justify-center ">
-      <div className=" pl-2">
+    <section className=" bg-slate-800 text-white lg:pt-48 pt-40 lg:pb-56 pb-32 lg:px-8 px-3 grid lg:grid-cols-2  items-center justify-center">
+      <div className="pl-2">
         {/* <h1 className="text-6xl font-bold mb-4 animate-pulse">
           Learn Data Structures and Algorithms Visually
         </h1> */}
@@ -22,10 +22,10 @@ const Hero = () => {
           Explore Concepts
         </a>
       </div>
-      <div className="ml-5">
+      <div className="lg:ml-5">
         <Image src={heroImg} alt="heroImg" height={3500} width={3500} />
       </div>
-    </div>
+    </section>
   );
 };
 

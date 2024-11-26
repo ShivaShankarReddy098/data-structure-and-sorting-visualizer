@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const SortingVisualizer = () => {
   const [array, setArray] = useState([]);
-  const [speed, setSpeed] = useState(500);
+  const [speed, setSpeed] = useState(600);
   const [givenArr, setGivenArr] = useState([]);
   const [algorithm, setAlgorithm] = useState("Bubble Sort");
   const [sortedArray, setSortedArray] = useState([]);
@@ -128,8 +128,10 @@ const SortingVisualizer = () => {
   };
 
   return (
-    <div className="px-4 py-40">
-      <h2 className="text-xl font-bold mb-4">Sorting Visualizer</h2>
+    <div className="px-4 lg:py-40 py-28">
+      <h2 className="text-xl font-bold mb-8 flex justify-center ">
+        Sorting Visualizer
+      </h2>
       <div className="flex justify-center mb-4">
         {array.map((value, idx) => (
           <div
@@ -148,7 +150,7 @@ const SortingVisualizer = () => {
       </div>
       <div className="flex justify-center mb-4">
         <select
-          className="border border-gray-300 p-2 rounded mr-4"
+          className="border border-gray-300 lg:p-2 rounded mr-4"
           value={algorithm}
           onChange={(e) => setAlgorithm(e.target.value)}
         >
@@ -158,7 +160,7 @@ const SortingVisualizer = () => {
           <option>Quick Sort</option>
         </select>
         <button
-          className="bg-green-500 px-4 py-2 text-white rounded mr-4"
+          className="bg-green-500 lg:px-4 lg:py-2 px-1 py-1 text-white rounded mr-4"
           onClick={generateArray}
         >
           Generate New Array

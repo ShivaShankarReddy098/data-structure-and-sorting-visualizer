@@ -1,29 +1,6 @@
 import React from "react";
 
 const AboutMe = () => {
-  const skills = {
-    Languages: ["Python", "JavaScript", "TypeScript", "C"],
-    "Frameworks and Libraries": [
-      "React.js",
-      "Next.js",
-      "Express.js",
-      "Node.js",
-      "NumPy",
-      "Pandas",
-      "Matplotlib",
-    ],
-    Databases: ["MongoDB", "MySQL", "PostgreSQL"],
-    Tools: [
-      "GitHub",
-      "VS Code",
-      "MySQL Workbench",
-      "Postman API",
-      "MongoDB Compass",
-      "Figma",
-      "Jupyter",
-    ],
-    Others: ["Docker", "Git", "GSAP", "Sequelize", "Mongoose"],
-  };
   return (
     <div id="about-me" className="bg-gray-100 py-16 px-8 ">
       <h2 className="text-4xl font-bold mb-6 text-gray-800 items-center flex justify-center">
@@ -70,35 +47,6 @@ const AboutMe = () => {
             </a>
           </div>
         </div>
-        <section className="bg-gray-100 py-10">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              My Skills
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {Object.entries(skills).map(([category, items]) => (
-                <div
-                  key={category}
-                  className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
-                >
-                  <h3 className="text-xl font-semibold text-gray-700 mb-4">
-                    {category}
-                  </h3>
-                  <ul className="space-y-2">
-                    {items.map((item, index) => (
-                      <li
-                        key={index}
-                        className="text-gray-600 bg-gray-100 py-1 px-3 rounded-md"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

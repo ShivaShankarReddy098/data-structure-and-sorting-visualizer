@@ -6,48 +6,63 @@ const ArrayVisualizer = () => {
   const [array, setArray] = useState([10, 20, 30, 40]);
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handlePush = () => {
-    if (inputValue === "") return alert("Enter a value to push!");
-    setArray([...array, Number(inputValue)]);
-    setInputValue("");
+    if (inputValue === "") {
+      setAnswer("Enter a value");
+      setArray([...array]);
+      // setAnswer("");
+    } else {
+      setArray([...array, Number(inputValue)]);
+      setInputValue("");
+      setAnswer(`${inputValue} added to current array`);
+    }
   };
 
   const handlePop = () => {
-    if (array.length === 0) return alert("Array is empty!");
-    setArray(array.slice(0, -1));
+    if (array.length === 0) {
+      setAnswer("Array is empty");
+    } else {
+      setArray(array.slice(0, -1));
+      setAnswer(`${array[array.length - 1]} removed from array`);
+    }
   };
 
   const handleAddAtIndex = () => {
-    if (inputValue === "" || indexValue === "")
-      return alert("Enter a value and index!");
+    if (inputValue === "" && indexValue === "")
+      return setAnswer("Enter a value and index!");
+    if (indexValue === "") return setAnswer("enter index!");
+    if (inputValue === "") return setAnswer("enter value!");
     const index = parseInt(indexValue);
-    if (index < 0 || index > array.length) return alert("Invalid index!");
+    if (index < 0 || index > array.length) return setAnswer("Invalid index!");
     const newArray = [...array];
     newArray.splice(index, 0, Number(inputValue));
     setArray(newArray);
     setInputValue("");
     setIndexValue("");
+    setAnswer(`${inputValue} added at index ${index}`);
   };
 
   const handleRemoveAtIndex = () => {
-    if (indexValue === "") return alert("Enter an index!");
+    if (indexValue === "") return setAnswer("Enter index!");
     const index = parseInt(indexValue);
-    if (index < 0 || index >= array.length) return alert("Invalid index!");
+    if (index < 0 || index >= array.length) return setAnswer("Invalid index!");
     const newArray = [...array];
     newArray.splice(index, 1);
     setArray(newArray);
     setIndexValue("");
+    setAnswer(`${array[index]} removed from array`);
   };
 
   const handleFind = () => {
-    if (inputValue === "") return alert("Enter a value to find!");
+    if (inputValue === "") return setAnswer("Enter a value");
     const value = Number(inputValue);
     const index = array.indexOf(value);
     if (index === -1) {
-      alert(`Value ${value} not found in the array!`);
+      setAnswer(`Value ${value} not found in the array!`);
     } else {
-      alert(`Value ${value} found at index ${index}`);
+      setAnswer(`Value ${value} found at index ${index}`);
     }
     setInputValue("");
   };
@@ -124,6 +139,7 @@ const ArrayVisualizer = () => {
             Clear Array
           </button>
         </div>
+        <p className="text-center p-4">{answer && `➡️ ${answer}`}</p>
       </div>
     </div>
   );
