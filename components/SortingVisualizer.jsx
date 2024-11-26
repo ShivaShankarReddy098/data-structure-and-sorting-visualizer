@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const SortingVisualizer = () => {
   const [array, setArray] = useState([]);
-  const [speed, setSpeed] = useState(600);
+  const [speed, setSpeed] = useState(900);
   const [givenArr, setGivenArr] = useState([]);
   const [algorithm, setAlgorithm] = useState("Bubble Sort");
   const [sortedArray, setSortedArray] = useState([]);
