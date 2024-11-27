@@ -85,7 +85,7 @@ const Concepts = () => {
   ];
 
   return (
-    <div id="concepts" className="lg:py-16 py-20 px-8">
+    <div id="concepts" className="lg:py-16 py-20 px-8 lg:flex flex-col hidden">
       <h2 className="text-4xl font-bold text-center mb-8">Concepts & Theory</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {concepts.map((concept) => (

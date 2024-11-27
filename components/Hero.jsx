@@ -10,7 +10,7 @@ const Hero = () => {
         {/* <h1 className="text-6xl font-bold mb-4 animate-pulse">
           Learn Data Structures and Algorithms Visually
         </h1> */}
-        <TypingAnimation text="Learn DSA Visually" />
+        <TypingAnimation text="Learn DSA " />
         <p className="text-lg mb-6 text-wrap">
           Master sorting algorithms, stacks, queues, linked lists, and more with
           hands-on interactive visualizations.

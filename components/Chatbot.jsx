@@ -20,15 +20,15 @@ const Chatbot = () => {
     if (input.trim() === "") return;
 
     setMessages([...messages, { sender: "user", text: input }]);
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: `You asked about "${input}". Let me provide some learning resources!`,
-        },
-      ]);
-    }, 1000);
+    // setTimeout(() => {
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     {
+    //       sender: "bot",
+    //       text: `You asked about "${input}". Let me provide some learning resources!`,
+    //     },
+    //   ]);
+    // }, 1000);
     const handleSendMessage = async () => {
       const myInput = `${input},give content what i asked do not give more content if i did not asked`;
       const response = await aiRes(myInput);
