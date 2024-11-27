@@ -7,6 +7,7 @@ const ArrayVisualizer = () => {
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
   const [answer, setAnswer] = useState("");
+  const [currentVal, setCurrentVal] = useState("");
 
   const handlePush = () => {
     if (inputValue === "") {
@@ -15,8 +16,12 @@ const ArrayVisualizer = () => {
       // setAnswer("");
     } else {
       setArray([...array, Number(inputValue)]);
+      setCurrentVal(inputValue);
       setInputValue("");
       setAnswer(`${inputValue} added to current array`);
+      setTimeout(() => {
+        setCurrentVal("");
+      }, 1000);
     }
   };
 
@@ -24,6 +29,7 @@ const ArrayVisualizer = () => {
     if (array.length === 0) {
       setAnswer("Array is empty");
     } else {
+      setCurrentVal(true);
       setArray(array.slice(0, -1));
       setAnswer(`${array[array.length - 1]} removed from array`);
     }
@@ -39,6 +45,7 @@ const ArrayVisualizer = () => {
     const newArray = [...array];
     newArray.splice(index, 0, Number(inputValue));
     setArray(newArray);
+    setCurrentVal(true);
     setInputValue("");
     setIndexValue("");
     setAnswer(`${inputValue} added at index ${index}`);
@@ -51,6 +58,7 @@ const ArrayVisualizer = () => {
     const newArray = [...array];
     newArray.splice(index, 1);
     setArray(newArray);
+    setCurrentVal(true);
     setIndexValue("");
     setAnswer(`${array[index]} removed from array`);
   };
@@ -62,6 +70,7 @@ const ArrayVisualizer = () => {
     if (index === -1) {
       setAnswer(`Value ${value} not found in the array!`);
     } else {
+      setCurrentVal(true);
       setAnswer(`Value ${value} found at index ${index}`);
     }
     setInputValue("");
@@ -76,7 +85,10 @@ const ArrayVisualizer = () => {
           {array.map((value, index) => (
             <div
               key={index}
-              className="p-2 bg-blue-500 text-white rounded shadow"
+              // className="p-2 bg-blue-500 text-white rounded shadow"
+              className={`p-2 text-white rounded shadow transition-all ${
+                currentVal == value ? "bg-red-500" : "bg-blue-500"
+              }`}
             >
               {value}
             </div>
