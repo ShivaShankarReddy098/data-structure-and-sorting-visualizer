@@ -7,14 +7,17 @@ const StackVisualizer = () => {
   const [value, setValue] = useState("");
   const [answer, setAnwer] = useState("");
   const [newStack, setNewStack] = useState([]);
+  const [currentVal, setCurrentVal] = useState();
 
   const handlePush = () => {
     if (value === "") return setAnwer("enter value!");
-    setStack([...stack, Number(value)]); //[2,3,4,5]
-    console.log(stack);
-
+    setStack([...stack, Number(value)]);
+    setCurrentVal(value);
     setAnwer(`${value} added to stack`);
     setValue("");
+    setTimeout(() => {
+      setCurrentVal();
+    }, 1500);
   };
   useEffect(() => {
     const myArr = stack.reverse();
@@ -27,13 +30,21 @@ const StackVisualizer = () => {
     const newStackA = [...newStack.reverse()];
     console.log(newStackA);
     stack.pop();
-    newStackA.pop();
+    const removedVal = newStackA.pop();
+    setCurrentVal(removedVal);
     setNewStack(newStackA);
+    // setTimeout(() => {
+    //   setNewStack(newStackA);
+    // }, 1500);
   };
 
   const handlePeek = () => {
     if (newStack.length === 0) return setAnwer("Stack is empty!");
+    setCurrentVal(newStack[0]);
     setAnwer("Top element is: " + newStack[0]);
+    setTimeout(() => {
+      setCurrentVal("");
+    }, 1500);
     // setAnwer(`Top of stack: ${newStack.reverse()[newStack.length - 1]}`);
   };
 
@@ -46,32 +57,37 @@ const StackVisualizer = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Value"
-          className="border border-gray-300 p-2 rounded mr-2"
+          className="border border-gray-300 p-2 rounded mr-2 w-3/4"
         />
-        <button
-          onClick={handlePush}
-          className="bg-blue-500 px-4 py-2 text-white rounded mr-2"
-        >
-          Push
-        </button>
-        <button
-          onClick={handlePop}
-          className="bg-red-500 px-4 py-2 text-white rounded mr-2"
-        >
-          Pop
-        </button>
-        <button
-          onClick={handlePeek}
-          className="bg-green-500 px-4 py-2 text-white rounded"
-        >
-          Peek
-        </button>
+        <div className="grid grid-cols-2 gap-2 mt-2 lg:flex lg:text-center lg:justify-center">
+          <button
+            onClick={handlePush}
+            className="bg-blue-500 px-4 py-2 text-white rounded mr-2"
+          >
+            Push
+          </button>
+          <button
+            onClick={handlePop}
+            className="bg-red-500 px-4 py-2 text-white rounded mr-2"
+          >
+            Pop
+          </button>
+          <button
+            onClick={handlePeek}
+            className="bg-green-500 px-4 py-2 text-white rounded"
+          >
+            Peek
+          </button>
+        </div>
       </div>
       <div className="grid  justify-center mt-4">
         {newStack.map((value, idx) => (
           <div
             key={idx}
-            className="bg-blue-500 mx-1 text-white text-center px-4 py-2 border-2"
+            // className="bg-blue-500 mx-1 text-white text-center px-4 py-2 border-2"
+            className={` mx-1 text-white text-center px-4 py-2 border-2 transition-all ${
+              currentVal == value ? "bg-red-500" : "bg-blue-500"
+            }`}
           >
             {value}
           </div>

@@ -179,7 +179,7 @@ const SortingVisualizer = () => {
             {givenArr.map((value, idx) => (
               <div
                 key={idx}
-                className="bg-yellow-300 mx-1 text-white text-center p-2 rounded"
+                className="bg-yellow-300 mx-1 text-white text-center lg:p-2 p-1 rounded"
               >
                 {value}
               </div>
@@ -194,7 +194,7 @@ const SortingVisualizer = () => {
             {sortedArray.map((value, idx) => (
               <div
                 key={idx}
-                className="bg-green-500 mx-1 text-white text-center p-2 rounded"
+                className="bg-green-500 mx-1 text-white text-center lg:p-2 p-1 rounded"
               >
                 {value}
               </div>

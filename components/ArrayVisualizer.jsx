@@ -29,9 +29,11 @@ const ArrayVisualizer = () => {
     if (array.length === 0) {
       setAnswer("Array is empty");
     } else {
-      setCurrentVal(true);
-      setArray(array.slice(0, -1));
-      setAnswer(`${array[array.length - 1]} removed from array`);
+      setCurrentVal(array[array.length - 1]);
+      setTimeout(() => {
+        setArray(array.slice(0, -1));
+        setAnswer(`${array[array.length - 1]} removed from array`);
+      }, 1000);
     }
   };
 
@@ -45,10 +47,13 @@ const ArrayVisualizer = () => {
     const newArray = [...array];
     newArray.splice(index, 0, Number(inputValue));
     setArray(newArray);
-    setCurrentVal(true);
+    setCurrentVal(inputValue);
     setInputValue("");
     setIndexValue("");
     setAnswer(`${inputValue} added at index ${index}`);
+    setTimeout(() => {
+      setCurrentVal("");
+    }, 1000);
   };
 
   const handleRemoveAtIndex = () => {
@@ -56,11 +61,13 @@ const ArrayVisualizer = () => {
     const index = parseInt(indexValue);
     if (index < 0 || index >= array.length) return setAnswer("Invalid index!");
     const newArray = [...array];
-    newArray.splice(index, 1);
-    setArray(newArray);
-    setCurrentVal(true);
-    setIndexValue("");
-    setAnswer(`${array[index]} removed from array`);
+    const removedArr = newArray.splice(index, 1);
+    setCurrentVal(removedArr);
+    setTimeout(() => {
+      setArray(newArray);
+      setIndexValue("");
+      setAnswer(`${array[index]} removed from array`);
+    }, 1000);
   };
 
   const handleFind = () => {
@@ -70,10 +77,13 @@ const ArrayVisualizer = () => {
     if (index === -1) {
       setAnswer(`Value ${value} not found in the array!`);
     } else {
-      setCurrentVal(true);
+      setCurrentVal(value);
       setAnswer(`Value ${value} found at index ${index}`);
     }
     setInputValue("");
+    setTimeout(() => {
+      setCurrentVal("");
+    }, 1000);
   };
 
   return (

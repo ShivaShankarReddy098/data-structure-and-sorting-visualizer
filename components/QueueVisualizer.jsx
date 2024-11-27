@@ -54,7 +54,7 @@ const QueueVisualizer = () => {
         </button>
         <button
           onClick={handlePeek}
-          className="bg-green-500 lg:px-4 lg:py-2  px-2 py-1 text-white rounded"
+          className="bg-green-500 lg:px-4 lg:py-2  px-2 py-1 mt-2 text-white rounded"
         >
           Peek
         </button>
