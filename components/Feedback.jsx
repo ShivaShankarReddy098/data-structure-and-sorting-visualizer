@@ -86,7 +86,7 @@ const Feedback = () => {
           Submit Feedback
         </button>
       </form>
-      <div className="max-w-lg mx-auto">
+      <div className="max-w-lg mx-auto lg:grid lg:grid-cols-2 gap-1">
         {feedbacks.length > 0 ? (
           feedbacks.map((feedback, index) => (
             <div

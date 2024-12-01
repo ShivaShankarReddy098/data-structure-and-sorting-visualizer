@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import heroImg from "@/public/dsa-hero.png";
 import TypingAnimation from "./ui/typing-animation";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -15,12 +16,12 @@ const Hero = () => {
           Master sorting algorithms, stacks, queues, linked lists, and more with
           hands-on interactive visualizations.
         </p>
-        <a
-          href="#concepts"
+        <Link
+          href="/sorting"
           className="bg-white text-blue-500 font-semibold px-6 py-3 rounded hover:bg-gray-200 transition"
         >
           Explore Concepts
-        </a>
+        </Link>
       </div>
       <div className="lg:ml-5">
         <Image src={heroImg} alt="heroImg" height={3500} width={3500} />

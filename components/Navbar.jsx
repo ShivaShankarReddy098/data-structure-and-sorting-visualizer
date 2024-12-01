@@ -44,6 +44,13 @@ const Navbar = () => {
 
       {/* Navigation Links */}
       <div className="hidden lg:flex md:flex gap-6">
+        <a
+          href="https://my-portfolio-using-next-js.vercel.app/"
+          className="hover:text-gray-500"
+          target="_blanck"
+        >
+          Who Made This
+        </a>
         <Link href="/Problems" className="hover:text-gray-500">
           Problems
         </Link>
@@ -78,6 +85,13 @@ const Navbar = () => {
                 />
               </svg>
             </button>
+            <a
+              href="https://my-portfolio-using-next-js.vercel.app/"
+              className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
+              target="_blanck"
+            >
+              Who Made This
+            </a>
             <Link
               href="/Problems"
               className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
