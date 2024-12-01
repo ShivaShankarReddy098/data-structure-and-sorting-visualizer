@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **DSA Visualizer**
 
-## Getting Started
+A powerful and interactive **Data Structures and Algorithms Visualizer** built with **Next.js**, **React.js**, **Tailwind CSS**, and **Gemini API**. This project simplifies the learning and understanding of data structures and algorithms by providing intuitive visualizations, problem-solving tools, and a **Chatbot Assistant** for user queries.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Visit Website](https://data-structure-and-sorting-visualizer.vercel.app/)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## **Features**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **1. Sorting Visualizer**
 
-## Learn More
+- Visualize how different sorting algorithms (e.g., Bubble Sort, Merge Sort, Quick Sort, etc.) work step-by-step in real-time.
+- Supports customization of array size and speed of visualization.
 
-To learn more about Next.js, take a look at the following resources:
+### **2. Data Structures Visualizer**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Array:** Demonstrates operations like insertion, deletion, traversal, and search.
+- **Stack:** Simulates push, pop, and peek operations.
+- **Queue:** Visualizes enqueue and dequeue operations.
+- **Linked List:** Visualizes node creation, insertion, deletion, and traversal.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **3. Problems Page**
 
-## Deploy on Vercel
+- Access a curated list of **easy**, **medium**, and **hard** problems based on sorting algorithms and data structures.
+- Problems are categorized for better organization and learning flow.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **4. Chatbot Assistant**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Interactive AI-powered chatbot** to assist users with questions related to:
+  - Sorting algorithms and their implementations.
+  - Data structure operations.
+  - Problem-solving techniques and concepts.
+  - Provides instant answers and learning suggestions for better user experience.
+
+---
+
+## **Technologies Used**
+
+- **Next.js**: For server-side rendering and a seamless user experience.
+- **React.js**: For building a dynamic and interactive UI.
+- **Tailwind CSS**: For designing responsive and modern layouts.
+- **Gemini API**: For advanced functionality and analytics integration.
+- **Socket.io**: For real-time chat functionality with the chatbot.
+- **JavaScript**: Core programming language for application logic.
+
+---
+
+## **Installation and Setup**
+
+Follow these steps to run the project locally:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/dsa-visualizer.git
+   cd dsa-visualizer
+   npm install
+   npm run dev
+   http://localhost:3000
+   ```
