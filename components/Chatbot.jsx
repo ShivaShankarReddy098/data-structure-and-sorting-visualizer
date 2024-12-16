@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { aiRes } from "@/utils/apiChat";
 
 const Chatbot = () => {
@@ -11,47 +11,61 @@ const Chatbot = () => {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loader for bot response
+  const messagesEndRef = useRef(null); // For auto-scroll
 
+  // Toggle chat window
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  // Scroll to bottom when new messages are added
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  // Send user input and fetch bot response
   const handleSend = () => {
-    if (input.trim() === "") return;
+    if (input.trim() === "" || isLoading) return;
 
+    // Add user message
     setMessages([...messages, { sender: "user", text: input }]);
-    // setTimeout(() => {
-    //   setMessages((prev) => [
-    //     ...prev,
-    //     {
-    //       sender: "bot",
-    //       text: `You asked about "${input}". Let me provide some learning resources!`,
-    //     },
-    //   ]);
-    // }, 1000);
-    const handleSendMessage = async () => {
-      const myInput = `${input},give content what i asked do not give more content if i did not asked`;
-      const response = await aiRes(myInput);
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: response
-            .replace("```", "")
-            .replace("***", "")
-            .replace("**", "")
-            .replace("** * *", ""),
-        },
-      ]);
-    };
-    handleSendMessage();
-    // aiRes(input);
+    setIsLoading(true); // Show loader
+    const fetchBotResponse = async () => {
+      try {
+        const query = `${input}, give content as I asked, do not give more if not requested.`;
+        const response = await aiRes(query);
 
-    setInput("");
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: response.replace(/```|[*]+/g, ""), // Clean markdown formatting
+          },
+        ]);
+      } catch (error) {
+        console.error("Error fetching bot response:", error);
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Oops! Something went wrong. Please try again.",
+          },
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBotResponse();
+    setInput(""); // Clear input field
   };
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
+      {/* Chat Toggle Button */}
       {!isOpen && (
         <button
           onClick={handleToggle}
@@ -60,15 +74,23 @@ const Chatbot = () => {
           Chat
         </button>
       )}
+
+      {/* Chatbox */}
       {isOpen && (
-        <div className="w-80 bg-white border border-gray-200 shadow-lg rounded-lg">
+        <div className="w-80 bg-white border border-gray-200 shadow-lg rounded-lg flex flex-col">
+          {/* Header */}
           <div className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between">
-            <h2 className="text-lg">Learning Assistant</h2>
-            <button onClick={handleToggle} className="text-white font-bold">
+            <h2 className="text-lg font-semibold">Learning Assistant</h2>
+            <button
+              onClick={handleToggle}
+              className="text-white font-bold hover:opacity-80"
+            >
               ×
             </button>
           </div>
-          <div className="p-4 h-64 overflow-y-auto">
+
+          {/* Message Area */}
+          <div className="p-4 flex-1 overflow-y-auto">
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -81,7 +103,19 @@ const Chatbot = () => {
                 {msg.text}
               </div>
             ))}
+
+            {/* Loader */}
+            {isLoading && (
+              <div className="text-gray-500 text-sm animate-pulse">
+                Thinking...
+              </div>
+            )}
+
+            {/* Auto-scroll Ref */}
+            <div ref={messagesEndRef} />
           </div>
+
+          {/* Input Section */}
           <div className="flex items-center p-3 border-t">
             <input
               type="text"
@@ -89,10 +123,16 @@ const Chatbot = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
+              disabled={isLoading} // Disable input while loading
             />
             <button
               onClick={handleSend}
-              className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700"
+              className={`bg-blue-600 text-white px-4 py-2 rounded-r-lg ${
+                isLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-700"
+              }`}
+              disabled={isLoading}
             >
               Send
             </button>
