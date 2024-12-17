@@ -1,8 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Concepts = () => {
-  const [selectedConcept, setSelectedConcept] = useState(null);
+  const conceptRefs = useRef([]); // Reference for each concept div
+
+  useEffect(() => {
+    // Animate each concept on scroll
+    conceptRefs.current.forEach((el, index) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%", // Trigger point for animation
+            end: "top 50%",
+            toggleActions: "play none none reverse",
+            markers: false, // Set to true for debugging
+          },
+        }
+      );
+    });
+  }, []);
 
   const concepts = [
     {
@@ -57,6 +87,7 @@ const Concepts = () => {
       Applications:
       - Function calls and recursion.
       - Undo operations in text editors.
+      - Backtracking algorithms (e.g., solving mazes, DFS).
       `,
       example: "Example: Push(10), Push(20), Pop() -> Stack: [10]",
     },
@@ -85,40 +116,22 @@ const Concepts = () => {
   ];
 
   return (
-    <div id="concepts" className="lg:py-16 py-20 px-8 lg:flex flex-col hidden">
+    <div id="concepts" className="lg:py-16 py-20 px-8 lg:flex flex-col">
       <h2 className="text-4xl font-bold text-center mb-8">Concepts & Theory</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {concepts.map((concept) => (
+        {concepts.map((concept, index) => (
           <div
             key={concept.id}
+            ref={(el) => (conceptRefs.current[index] = el)}
             className="p-6 border rounded-lg shadow hover:shadow-lg transition"
           >
             <h3 className="text-2xl font-bold mb-4">{concept.title}</h3>
             <p className="text-gray-700 mb-4">{concept.shortDetails}</p>
             <p className="text-gray-900 font-semibold">Example:</p>
             <p className="text-gray-700 mb-4">{concept.example}</p>
-            <button
-              onClick={() => setSelectedConcept(concept.id)}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-            >
-              Read More
-            </button>
-            {selectedConcept === concept.id && (
-              <div className="fixed lg:top-0 top-8 m-4 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-                <div className="bg-white lg:p-8 p-3 rounded-lg shadow-lg max-w-2xl">
-                  <h3 className="text-2xl font-bold mb-4">{concept.title}</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap mb-6 text-center">
-                    {concept.fullDetails}
-                  </p>
-                  <button
-                    onClick={() => setSelectedConcept(null)}
-                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            )}
+            <p className="text-gray-700 whitespace-pre-wrap">
+              {concept.fullDetails}
+            </p>
           </div>
         ))}
       </div>
