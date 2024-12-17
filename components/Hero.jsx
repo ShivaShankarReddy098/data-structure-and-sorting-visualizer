@@ -13,7 +13,7 @@ const Hero = () => {
       {/* Left Section */}
       <div className="space-y-6 lg:pl-4">
         <h1 className="text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-          <TypingAnimation text="Learn DSA Visually" />
+          <TypingAnimation text="Learn DSA " />
         </h1>
         <p className="text-lg text-gray-300 leading-relaxed">
           Master sorting algorithms, stacks, queues, linked lists, and more with

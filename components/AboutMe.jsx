@@ -65,7 +65,7 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <div id="about-me" className="bg-gray-100 py-16 px-8">
+    <div id="about-me" className="bg-gray-100 py-16 px-8 overflow-hidden">
       {/* Title */}
       <h2
         ref={titleRef}
