@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import gsap from "gsap";
 
 const ArrayVisualizer = () => {
   const [array, setArray] = useState([10, 20, 30, 40]);
@@ -9,19 +10,29 @@ const ArrayVisualizer = () => {
   const [answer, setAnswer] = useState("");
   const [currentVal, setCurrentVal] = useState("");
 
+  const containerRef = React.useRef();
+
   const handlePush = () => {
     if (inputValue === "") {
       setAnswer("Enter a value");
       setArray([...array]);
-      // setAnswer("");
     } else {
-      setArray([...array, Number(inputValue)]);
+      const newArray = [...array, Number(inputValue)];
+      setArray(newArray);
       setCurrentVal(inputValue);
       setInputValue("");
-      setAnswer(`${inputValue} added to current array`);
+      setAnswer(`${inputValue} added to the array`);
       setTimeout(() => {
         setCurrentVal("");
       }, 1000);
+
+      // GSAP animation for Push (Element slides in from above)
+      const newElement = containerRef.current.lastChild;
+      gsap.fromTo(
+        newElement,
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+      );
     }
   };
 
@@ -31,17 +42,30 @@ const ArrayVisualizer = () => {
     } else {
       setCurrentVal(array[array.length - 1]);
       setTimeout(() => {
-        setArray(array.slice(0, -1));
+        const newArray = array.slice(0, -1);
+        setArray(newArray);
         setAnswer(`${array[array.length - 1]} removed from array`);
       }, 1000);
+
+      // GSAP animation for Pop (Element disappears with shrinking effect)
+      const lastElement = containerRef.current.lastChild;
+      gsap.to(lastElement, {
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+          gsap.set(lastElement, { scale: 1, opacity: 1 });
+        },
+      });
     }
   };
 
   const handleAddAtIndex = () => {
     if (inputValue === "" && indexValue === "")
       return setAnswer("Enter a value and index!");
-    if (indexValue === "") return setAnswer("enter index!");
-    if (inputValue === "") return setAnswer("enter value!");
+    if (indexValue === "") return setAnswer("Enter index!");
+    if (inputValue === "") return setAnswer("Enter value!");
     const index = parseInt(indexValue);
     if (index < 0 || index > array.length) return setAnswer("Invalid index!");
     const newArray = [...array];
@@ -54,6 +78,14 @@ const ArrayVisualizer = () => {
     setTimeout(() => {
       setCurrentVal("");
     }, 1000);
+
+    // GSAP animation for Add at Index (Element slides into position)
+    const newElement = containerRef.current.children[index];
+    gsap.fromTo(
+      newElement,
+      { opacity: 0, x: -100 },
+      { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
+    );
   };
 
   const handleRemoveAtIndex = () => {
@@ -68,6 +100,18 @@ const ArrayVisualizer = () => {
       setIndexValue("");
       setAnswer(`${array[index]} removed from array`);
     }, 1000);
+
+    // GSAP animation for Remove at Index (Element shrinks and disappears)
+    const elementToRemove = containerRef.current.children[index];
+    gsap.to(elementToRemove, {
+      scale: 0.5,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.set(elementToRemove, { scale: 1, opacity: 1 });
+      },
+    });
   };
 
   const handleFind = () => {
@@ -84,6 +128,14 @@ const ArrayVisualizer = () => {
     setTimeout(() => {
       setCurrentVal("");
     }, 1000);
+
+    // GSAP animation for Find (Element pulses to grab attention)
+    const elementToFind = containerRef.current.children[index];
+    gsap.fromTo(
+      elementToFind,
+      { scale: 1 },
+      { scale: 1.2, duration: 0.5, yoyo: true, repeat: 1 }
+    );
   };
 
   return (
@@ -91,11 +143,10 @@ const ArrayVisualizer = () => {
       <h2 className="text-2xl font-bold mb-4 text-center">Array Visualizer</h2>
       <div className="mb-4">
         <p className="text-lg font-semibold">Current Array:</p>
-        <div className="flex flex-wrap gap-2 mt-2">
+        <div ref={containerRef} className="flex flex-wrap gap-2 mt-2">
           {array.map((value, index) => (
             <div
               key={index}
-              // className="p-2 bg-blue-500 text-white rounded shadow"
               className={`p-2 text-white rounded shadow transition-all ${
                 currentVal == value ? "bg-red-500" : "bg-blue-500"
               }`}
