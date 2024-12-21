@@ -44,22 +44,31 @@ const Navbar = () => {
 
       {/* Navigation Links */}
       <div className="hidden lg:flex md:flex gap-6">
+        <Link
+          href="/Problems"
+          className="who-made-link hover:text-gray-500 p-[4px]"
+        >
+          Problems
+        </Link>
+        <Link
+          href="/sorting"
+          className="who-made-link hover:text-gray-500 p-[4px]"
+        >
+          Sorting Visualizer
+        </Link>
+        <Link
+          href="/data-structures"
+          className="who-made-link hover:text-gray-500 p-[4px]"
+        >
+          Data Structures
+        </Link>
         <a
           href="https://my-portfolio-using-next-js.vercel.app/"
-          className="hover:text-gray-500"
-          target="_blanck"
+          className=" hover:text-gray-500 lg:border-2 p-[4px] lg:border-black font-medium"
+          target="_blank"
         >
           Who Made This
         </a>
-        <Link href="/Problems" className="hover:text-gray-500">
-          Problems
-        </Link>
-        <Link href="/sorting" className="hover:text-gray-500">
-          Sorting Visualizer
-        </Link>
-        <Link href="/data-structures" className="hover:text-gray-500">
-          Data Structures
-        </Link>
       </div>
 
       {/* Sidebar for Mobile */}
@@ -88,7 +97,7 @@ const Navbar = () => {
             <a
               href="https://my-portfolio-using-next-js.vercel.app/"
               className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
-              target="_blanck"
+              target="_blank"
             >
               Who Made This
             </a>
